@@ -16,15 +16,16 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="C:\HaxeToolkit\haxe\lib\mcli\0,1,4" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="agersant.mp3db.Main" />
+    <option mainClass="agersant.mp3db.MP3DB" />
     <option enabledebug="False" />
-    <option additional="" />
+    <option additional="-D use_rtti_doc" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
@@ -36,7 +37,7 @@
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
-    <!-- example: <hidden path="..." /> -->
+    <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />
