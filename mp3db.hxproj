@@ -16,7 +16,6 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="C:\HaxeToolkit\haxe\lib\mcli\0,1,4" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -25,11 +24,13 @@
     <option noInlineOnDebug="False" />
     <option mainClass="agersant.mp3db.MP3DB" />
     <option enabledebug="False" />
-    <option additional="-D use_rtti_doc" />
+    <option additional="-D use_rtti_doc&#xA;-D server" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
-    <!-- example: <library name="..." /> -->
+    <library name="mcli" />
+    <library name="ufront-orm" />
+    <library name="format" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
