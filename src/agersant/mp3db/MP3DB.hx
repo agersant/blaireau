@@ -56,29 +56,37 @@ class MP3DB extends mcli.CommandLine
 		TableCreate.create(Track.manager);
 	}
 	
+	function processPath(path : String) : Void
+	{
+		var isDirectory = false;
+		try
+		{
+			isDirectory = FileSystem.isDirectory(path);
+			if (!FileSystem.exists(path))
+				return;
+		}
+		catch (d : Dynamic)
+		{
+			Sys.println('Error while opening $path');
+			return;
+		}
+		if (isDirectory)
+		{
+			return browse(path);
+		}
+		else
+		{
+			return processFile(path);
+		}
+	}
+	
+	
 	function browse(dir:String) : Void
 	{
-		if (!FileSystem.exists(dir))
-			return;
-		if (!FileSystem.isDirectory(dir))
-			return;
 		for (file in FileSystem.readDirectory(dir))
 		{
 			var filePath : String = '$dir\\$file';
-			try {
-				if (FileSystem.isDirectory(filePath))
-				{
-					browse(filePath);
-				}
-				else
-				{
-					processFile(filePath);
-				}
-			}
-			catch (e : Dynamic)
-			{
-				Sys.println('Error while analyzing $filePath');
-			}
+			processPath(filePath);
 		}
 	}
 	
