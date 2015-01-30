@@ -1,11 +1,15 @@
 package agersant.mp3db;
 
+import format.id3v2.Data.ParseError;
+import format.id3v2.Reader;
 import haxe.io.Path;
 import sys.db.Connection;
 import sys.db.Manager;
 import sys.db.Sqlite;
 import sys.db.TableCreate;
 import sys.FileSystem;
+import sys.io.File;
+import ufront.db.ManyToMany;
 
 /**
  * ...
@@ -39,6 +43,16 @@ class MP3DB extends mcli.CommandLine
 			
 		initDB();
 		browse(Sys.getCwd() + source);
+		
+		// test queries
+		var countryStats : Array<{name: String, numTracks: Int}> = new Array();
+		for (country in Country.manager.all())
+		{
+			countryStats.unshift({name: country.getName(), numTracks: country.getTracks().length });
+		}
+		countryStats.sort(function(a, b) { return b.numTracks - a.numTracks; } );
+		trace(countryStats);
+		
     }
 	
 	public static function main()
@@ -53,7 +67,12 @@ class MP3DB extends mcli.CommandLine
 		db = Sqlite.open(output);
 		Manager.cnx = db;
 		Manager.initialize();
+		TableCreate.create(Album.manager);	
+		TableCreate.create(Country.manager);
+		TableCreate.create(Genre.manager);
 		TableCreate.create(Track.manager);
+		ManyToMany.createJoinTable( Country, Track );
+		ManyToMany.createJoinTable( Genre, Track );
 	}
 	
 	function processPath(path : String) : Void
@@ -97,7 +116,29 @@ class MP3DB extends mcli.CommandLine
 		{
 			return;
 		}
-		var track = new Track(rawPath);
+		
+		var file = File.read(rawPath, true);
+		try
+		{
+			Sys.println("Analyzing " + rawPath);
+			var tag = new Reader(file);
+			var track = new Track(tag);
+			track.save();
+		}
+		catch (e : Dynamic)
+		{
+			if (e == ParseError.INVALID_HEADER_FILE_IDENTIFIER)
+			{
+				Sys.println("No ID3v2 tag: " + rawPath);
+			}
+			else
+			{
+				Sys.println(e);
+				Sys.println("Error during ID3v2 parsing on: " + rawPath);
+				throw e;
+			}
+		}
+		file.close();
 	}
 	
 }

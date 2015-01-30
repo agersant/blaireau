@@ -6,11 +6,11 @@ import ufront.db.ManyToMany;
  * ...
  * @author agersant
  */
-class Country extends ufront.db.Object
+class Genre extends ufront.db.Object
 {
 
 	var name : String;
-	var tracks : ManyToMany<Country, Track>;
+	var tracks : ManyToMany<Genre, Track>;
 	
 	public function new(_name:String) 
 	{
