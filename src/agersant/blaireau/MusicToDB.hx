@@ -1,5 +1,9 @@
-package agersant.mp3db;
+package agersant.blaireau;
 
+import agersant.blaireau.db.Album;
+import agersant.blaireau.db.Country;
+import agersant.blaireau.db.Genre;
+import agersant.blaireau.db.Track;
 import format.id3v2.Data.ParseError;
 import format.id3v2.Reader;
 import haxe.io.Path;
@@ -16,7 +20,7 @@ import ufront.db.ManyToMany;
  * @author agersant
  */
 
-class MP3DB extends mcli.CommandLine
+class MusicToDB extends mcli.CommandLine
 {
 
 	/**
@@ -57,7 +61,7 @@ class MP3DB extends mcli.CommandLine
 	
 	public static function main()
     {
-        new mcli.Dispatch(Sys.args()).dispatch(new MP3DB());
+        new mcli.Dispatch(Sys.args()).dispatch(new MusicToDB());
     }
 	
 	function initDB()

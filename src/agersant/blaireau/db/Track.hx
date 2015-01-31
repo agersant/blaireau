@@ -1,4 +1,7 @@
-package agersant.mp3db;
+package agersant.blaireau.db;
+import agersant.blaireau.db.Album;
+import agersant.blaireau.db.Country;
+import agersant.blaireau.db.Genre;
 import format.id3v2.Data.ParseError;
 import format.id3v2.Reader;
 import sys.db.Types.SEnum;

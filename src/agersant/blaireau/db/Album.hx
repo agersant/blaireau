@@ -1,4 +1,4 @@
-package agersant.mp3db;
+package agersant.blaireau.db;
 import format.id3v2.Reader;
 import ufront.db.Object.HasMany;
 
