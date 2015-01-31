@@ -2,9 +2,9 @@
 <project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie outputType="Application" />
+    <movie outputType="CustomBuild" />
     <movie input="" />
-    <movie path="bin\mp3db.n" />
+    <movie path="bin\blaireau.n" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -36,7 +36,6 @@
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\agersant\mp3db\Main.hx" />
     <compile path="src\agersant\blaireau\MusicToDB.hx" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
@@ -44,7 +43,7 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand />
+  <preBuildCommand>$(CompilerPath)\haxe.exe $(ProjectDir)\compile.hxml</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
