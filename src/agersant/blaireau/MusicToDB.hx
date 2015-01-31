@@ -44,19 +44,8 @@ class MusicToDB extends mcli.CommandLine
     {
 		if (output == null)
 			output = "output.db";
-			
 		initDB();
 		browse(Sys.getCwd() + source);
-		
-		// test queries
-		var countryStats : Array<{name: String, numTracks: Int}> = new Array();
-		for (country in Country.manager.all())
-		{
-			countryStats.unshift({name: country.getName(), numTracks: country.getTracks().length });
-		}
-		countryStats.sort(function(a, b) { return b.numTracks - a.numTracks; } );
-		trace(countryStats);
-		
     }
 	
 	public static function main()
