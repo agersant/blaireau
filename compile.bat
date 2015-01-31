@@ -1,0 +1,2 @@
+haxe compile_music_to_db.hxml
+haxe compile_db_to_display.hxml

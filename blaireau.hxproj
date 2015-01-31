@@ -31,7 +31,6 @@
   <haxelib>
     <library name="format" />
     <library name="mcli" />
-    <library name="nodejs" />
     <library name="ufront-orm" />
     <library name="unifill" />
   </haxelib>
@@ -44,9 +43,9 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>$(CompilerPath)\haxe.exe $(ProjectDir)\compile.hxml</preBuildCommand>
+  <preBuildCommand>$(ProjectDir)\compile.bat</preBuildCommand>
   <!-- Executed after build -->
-  <postBuildCommand alwaysRun="False" />
+  <postBuildCommand alwaysRun="False">$(ProjectDir)\deploy.bat</postBuildCommand>
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />

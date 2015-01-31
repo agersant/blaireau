@@ -1,0 +1,3 @@
+[submodule "rtp/sql.js"]
+	path = rtp/sql.js
+	url = https://github.com/kripken/sql.js.git

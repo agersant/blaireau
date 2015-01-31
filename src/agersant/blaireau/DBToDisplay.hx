@@ -1,16 +1,43 @@
 package agersant.blaireau;
-import js.Node;
+import haxe.io.Bytes;
+import haxe.io.BytesData;
+import js.Browser;
+import js.html.ArrayBuffer;
+import js.html.FileList;
+import js.html.FileReader;
+import js.html.FileReaderSync;
+import js.html.Uint8Array;
+import sqljs.Database;
+
 
 /**
  * ...
  * @author agersant
  */
+
 class DBToDisplay
 {
 
 	public static function main() 
 	{
-		Node.console.log("node oink");
+		var body = Browser.document.getElementsByTagName("body");
+		var fileInput = Browser.document.createInputElement();
+		fileInput.type = "file";
+		Browser.document.body.appendChild(fileInput);
+		
+		fileInput.onchange = function(event : Dynamic)
+		{
+			var files : FileList = event.target.files;
+			var reader : FileReader = new FileReader();
+			reader.readAsArrayBuffer(files.item(0));
+			reader.onload = function(d : Dynamic)
+			{
+				var db = new Database(new Uint8Array(reader.result));
+				trace(reader.result);
+				trace(db.exec("SELECT * FROM Track"));
+			}
+		}
+		
 	}
 	
 }

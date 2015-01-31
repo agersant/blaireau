@@ -1,5 +1,3 @@
 @echo off
-cd bin
-neko MusicToDB.n test
-display.html
-pause
+neko bin\MusicToDB\MusicToDB.n bin\test --output bin\test.db
+bin\DBToDisplay\display.html

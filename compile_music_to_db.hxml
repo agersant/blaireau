@@ -9,13 +9,4 @@
 
 -D server
 -main agersant.blaireau.MusicToDB
--neko bin/MusicToDB.n
---next
-
-
-
--lib nodejs
--cp src
-
--main agersant.blaireau.DBToDisplay
--js obj/DBToDisplay.js
+-neko bin/MusicToDB/MusicToDB.n

@@ -1,0 +1,7 @@
+-lib tink_core
+-lib tink_macro
+-lib ufront-orm
+-cp src
+
+-main agersant.blaireau.DBToDisplay
+-js bin/DBToDisplay/DBToDisplay.js
