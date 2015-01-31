@@ -1,6 +1,3 @@
-[submodule "rtp/sql.js"]
-	path = rtp/sql.js
-	url = https://github.com/kripken/sql.js.git
 [submodule "lib/d3-haxe-extern"]
 	path = lib/d3-haxe-extern
 	url = https://github.com/mikedotalmond/d3-haxe-extern.git
