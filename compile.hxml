@@ -1,0 +1,12 @@
+-lib mcli
+-lib tink_core
+-lib tink_macro
+-lib ufront-orm
+-lib format
+-lib unifill
+-cp ../id3/src
+-cp src
+
+-D server
+-main agersant.blaireau.MusicToDB
+-neko bin/MusicToDB.n
