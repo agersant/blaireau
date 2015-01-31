@@ -1,3 +1,6 @@
 [submodule "lib/d3-haxe-extern"]
 	path = lib/d3-haxe-extern
 	url = https://github.com/mikedotalmond/d3-haxe-extern.git
+[submodule "lib/sql.js"]
+	path = lib/sql.js
+	url = https://github.com/kripken/sql.js.git
