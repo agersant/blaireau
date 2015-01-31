@@ -2,6 +2,7 @@
 -lib tink_macro
 -lib ufront-orm
 -cp src
+-cp lib/d3-haxe-extern/src
 
 -main agersant.blaireau.DBToDisplay
 -js bin/DBToDisplay/DBToDisplay.js

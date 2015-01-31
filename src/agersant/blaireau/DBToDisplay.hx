@@ -2,6 +2,7 @@ package agersant.blaireau;
 import haxe.io.Bytes;
 import haxe.io.BytesData;
 import js.Browser;
+import js.d3.D3;
 import js.html.ArrayBuffer;
 import js.html.FileList;
 import js.html.FileReader;
@@ -37,6 +38,13 @@ class DBToDisplay
 				trace(db.exec("SELECT * FROM Track"));
 			}
 		}
+		
+		D3.select("body")
+			.append('div')
+			.text(function() {
+				return 'hi';
+			})
+			.style("background-color", "grey");
 		
 	}
 	
