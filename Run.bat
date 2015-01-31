@@ -1,4 +1,5 @@
 @echo off
 cd bin
-neko mp3db.n test
+neko MusicToDB.n test
+display.html
 pause

@@ -29,9 +29,10 @@
   </build>
   <!-- haxelib libraries -->
   <haxelib>
-    <library name="mcli" />
-    <library name="ufront-orm" />
     <library name="format" />
+    <library name="mcli" />
+    <library name="nodejs" />
+    <library name="ufront-orm" />
     <library name="unifill" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
