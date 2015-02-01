@@ -28,4 +28,24 @@ class Analyze
 		return output;
 	}
 	
+	public static function getTracksPerGenre(db : Database) : Array<{genre : String, numTracks : Int}>
+	{
+		var result = db.exec( "SELECT Genre.name AS genre, COUNT(*) AS numTracks FROM _join_Genre_Track, Genre WHERE Genre.id = _join_Genre_Track.r1 GROUP BY Genre.id ORDER BY Genre.name ASC" );
+		var columns : Array<String> = result[0].columns;
+		var rows : Array<Array<Dynamic>> = result[0].values;
+		
+		var output = [];
+		for (row in rows)
+		{
+			var value = { genre: "", numTracks: 0 };
+			for (i in 0...columns.length)
+			{
+				Reflect.setField(value, columns[i], row[i]);
+			}
+			output.push(value);
+		}
+		
+		return output;
+	}
+	
 }

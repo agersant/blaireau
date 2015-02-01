@@ -64,8 +64,8 @@ class MusicToDB extends mcli.CommandLine
 		TableCreate.create(Country.manager);
 		TableCreate.create(Genre.manager);
 		TableCreate.create(Track.manager);
-		ManyToMany.createJoinTable( Country, Track );
-		ManyToMany.createJoinTable( Genre, Track );
+		ManyToMany.createJoinTable(Country, Track);
+		ManyToMany.createJoinTable(Genre, Track);
 	}
 	
 	function processPath(path : String) : Void

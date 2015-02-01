@@ -17,6 +17,9 @@ import sqljs.Database;
 class Charts
 {
 
+	static inline var width : Float = 960;
+	static inline var height : Float = 600;
+	
 	public static function plotAlbumsByYear(db : Database) : Node
 	{
 		var data = Analyze.getAlbumsByYear(db);
@@ -24,8 +27,8 @@ class Charts
 		var chartOptions = new Options();
 		
 		chartOptions.title.text = "Albums per year of release";
-		chartOptions.chart.width = 960;
-		chartOptions.chart.height = 600;
+		chartOptions.chart.width = Charts.width;
+		chartOptions.chart.height = Charts.height;
 		chartOptions.chart.zoomType = ZoomType.x;
 		chartOptions.chart.renderTo = plotElement;
 		chartOptions.chart.type = ChartType.column;
@@ -44,6 +47,37 @@ class Charts
 			point.x = d.year;
 			point.y = d.numAlbums;
 			seriesData.push(point);
+		}
+		
+		var chart = new Chart(chartOptions);
+		return plotElement;
+	}
+	
+	public static function plotTracksByGenre(db : Database) : Node
+	{
+		var data = Analyze.getTracksPerGenre(db);
+		var plotElement = Browser.document.createDivElement();
+		var chartOptions = new Options();
+		
+		chartOptions.title.text = "Tracks per genre";
+		chartOptions.chart.width = Charts.width;
+		chartOptions.chart.height = Charts.height;
+		chartOptions.chart.zoomType = ZoomType.x;
+		chartOptions.chart.renderTo = plotElement;
+		chartOptions.chart.type = ChartType.column;
+		
+		chartOptions.yAxis.title.text = "Number of tracks";
+		chartOptions.xAxis.title.text = "Genre";
+		chartOptions.xAxis.categories = [];
+		
+		chartOptions.series.push(new SeriesOptions());
+		chartOptions.series[0].showInLegend = false;
+		chartOptions.series[0].name = "Number of tracks";
+		chartOptions.series[0].data = [];
+		for (d in data)
+		{
+			chartOptions.xAxis.categories.push(d.genre);
+			chartOptions.series[0].data.push(d.numTracks);
 		}
 		
 		var chart = new Chart(chartOptions);
