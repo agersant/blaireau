@@ -18,7 +18,7 @@ class DBToDisplay
 
 	public static function main() 
 	{
-		var body = Browser.document.getElementsByTagName("body");
+		var body = Browser.document.body;
 		var fileInput = Browser.document.createInputElement();
 		fileInput.type = "file";
 		Browser.document.body.appendChild(fileInput);
