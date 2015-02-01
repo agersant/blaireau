@@ -22,6 +22,15 @@ extern class Chart
 	public function showLoading(str : String) : Void {}
 }
 
+
+class DataPoint
+{
+	public function new() {}
+	public var name : String;
+	public var x : Null<Float>;
+	public var y : Null<Float>;
+}
+
 class ChartType
 {
 	public static inline var area: String = "area";
@@ -46,6 +55,14 @@ class ChartType
 	public static inline var spline: String = "spline";
 	public static inline var waterfall: String = "waterfall";
 }
+
+class ZoomType
+{
+	public static inline var x: String = "x";
+	public static inline var y: String = "y";
+	public static inline var xy: String = "xy";
+}
+
 
 class Options
 {
@@ -72,9 +89,12 @@ class AxisTitleOptions
 
 class ChartOptions
 {
-	public function new() {}
+	public function new() { }
+	public var height : Null<Float>;
 	public var renderTo : js.html.Node;
-	public var type : String;
+	public var type : String;	
+	public var width : Null<Float>;
+	public var zoomType : String;
 }
 
 class SeriesOptions
@@ -82,6 +102,7 @@ class SeriesOptions
 	public function new() {}
 	public var data : Array<Dynamic> = [];
 	public var name : String;
+	public var showInLegend : Null<Bool>;
 }
 
 class TitleOptions
