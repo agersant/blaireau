@@ -45,7 +45,7 @@ class MusicToDB extends mcli.CommandLine
 		if (output == null)
 			output = "output.db";
 		initDB();
-		browse(Sys.getCwd() + source);
+		browse(source);
     }
 	
 	public static function main()

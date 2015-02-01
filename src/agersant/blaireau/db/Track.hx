@@ -31,6 +31,7 @@ class Track extends ufront.db.Object
 		
 		// Album
 		var albumName : String = tag.getAlbumName();
+		// TODO homonyms?
 		var matchingAlbum = Album.manager.select($name == albumName);
 		if (matchingAlbum == null)
 		{

@@ -1,13 +1,14 @@
 package agersant.blaireau;
 import haxe.io.Bytes;
 import haxe.io.BytesData;
+import highcharts.Highcharts;
+import highcharts.Highcharts.Options;
 import js.Browser;
-import js.d3.D3;
-import js.d3.selection.Selection;
 import js.html.ArrayBuffer;
 import js.html.FileList;
 import js.html.FileReader;
 import js.html.FileReaderSync;
+import js.html.Node;
 import js.html.Uint8Array;
 import sqljs.Database;
 
@@ -41,71 +42,39 @@ class DBToDisplay
 		
 	}
 	
-	static function addMainContainer() : Selection
+	static function addMainContainer() : Node
 	{
-		D3.select("#main").remove();
-		D3.select("body").append("div").attr("id", "main");
-		return D3.select("#main");
+		Browser.document.querySelector("#main");
+		var mainDiv = Browser.document.createDivElement();
+		mainDiv.setAttribute("id", "main");
+		Browser.document.body.appendChild(mainDiv);
+		return mainDiv;
 	}
 	
 	static function render(db : Database)
 	{
 		var container = addMainContainer();
-		plotAlbumsByYear(db, container);
+		container.appendChild(plotAlbumsByYear(db));
 	}
 	
-	static function plotAlbumsByYear(db : Database, container : Selection)
+	static function plotAlbumsByYear(db : Database) : Node
 	{
-		
 		var data = getAlbumsByYear(db);
-		
-		var margin = { top: 20, right: 30, bottom: 30, left: 40 };
-		var width = 960 - margin.left - margin.right;
-		var height = 500 - margin.top - margin.bottom;
-		
-		var x = D3.scale.ordinal()
-			.domain(D3.range(
-				D3.min(data, function(d) { return d.year; } ),
-				1 + D3.max(data, function(d) { return d.year; } )
-			))
-			.rangeRoundBands([0, width]);
-		var getX = function(i) { return (untyped x)(i); };
-			
-		var y = D3.scale.linear()
-			.domain([0, D3.max(data, function(d) { return d.numAlbums; } )])
-			.range([height, 0]);
-		var getY = function(i) { return (untyped y)(i); };
-		
-		var chart = container.append("svg")
-			.attr("id", "plotAlbumsByYear")
-			.attr("class", "chart")
-			.attr("viewBox", "0 0 " + width + " " + height)
-			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom)
-			.append("g")
-				 .attr("id", "content")
-				 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-		
-		// Data
-		chart.selectAll("#content").data(data)
-			.enter().append("g")
-				.attr("class", "bar" )
-				.attr("transform", function(d) {
-					return "translate(" + getX(d.year) + ", 0)"; 
-				} );
-		
-		var bar = chart.selectAll(".bar");
-		
-		bar.append("rect")
-			.attr("y", function(d) { return getY(d.numAlbums); } )
-			.attr("height", function(d) { return height - getY(d.numAlbums); } )
-			.attr("width", x.rangeBand());
-		
-		bar.append("text")
-			.attr("x", x.rangeBand()/2 )
-			.attr("y", function(d) { return getY(d.numAlbums) + 3; } )
-			.attr("dy", ".75em")
-			.text(function(d) { return d.year; } );
+		var plotElement = Browser.document.createDivElement();
+		var chartOptions = new Options();
+		chartOptions.title.text = "Oink oink";
+		chartOptions.chart.renderTo = plotElement;
+		chartOptions.chart.type = ChartType.bar;
+		chartOptions.xAxis.categories = ["Apples", "Bananas", "Oranges"];
+		chartOptions.yAxis.title.text = "Fruit eaten";
+		chartOptions.series.push(new SeriesOptions());
+		chartOptions.series.push(new SeriesOptions());
+		chartOptions.series[0].data = [1, 0, 4];
+		chartOptions.series[0].name = "Jane";
+		chartOptions.series[1].data = [5, 7, 3];
+		chartOptions.series[1].name = "John";
+		var chart = new Chart(chartOptions);
+		return plotElement;
 	}
 	
 	static function getAlbumsByYear(db : Database) : Array<{year : Int, numAlbums : Int}>
