@@ -16,10 +16,21 @@ extern class Chart
 {
 	public function new(options : Options) {}
 	public var options : Options;
+	public var series : Array<Series>;
 	public function print() : Void {}
 	public function redraw() : Void {}
 	public function reflow() : Void {}
 	public function showLoading(str : String) : Void {}
+}
+
+
+@:native("Highcharts.Series")
+extern class Series
+{
+	public var name : String;
+	public function hide() : Void {}
+	public function setVisible(visible : Bool, redraw: Null<Bool>) : Void {}
+	public function show() : Void {}
 }
 
 
@@ -29,6 +40,14 @@ class DataPoint
 	public var name : String;
 	public var x : Null<Float>;
 	public var y : Null<Float>;
+}
+
+class AxisType
+{
+	public static inline var linear: String = "linear";
+	public static inline var logarithmic: String = "logarithmic";
+	public static inline var datetime: String = "datetime";
+	public static inline var category: String = "category";
 }
 
 class ChartType
@@ -80,6 +99,7 @@ class AxisOptions
 	public var categories : Array<String>;
 	public var labels : AxisLabelsOptions = new AxisLabelsOptions();
 	public var title : AxisTitleOptions = new AxisTitleOptions();
+	public var type : String;
 }
 
 class AxisLabelsOptions

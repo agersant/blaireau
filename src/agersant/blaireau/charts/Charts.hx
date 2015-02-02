@@ -103,25 +103,50 @@ class Charts
 		chartOptions.yAxis.title.text = "Number of tracks";
 		chartOptions.xAxis.title.text = "Year";
 		
-		var seriesByGenre: Map<String, SeriesOptions> = new Map();
+		var seriesByGenre: Map<String, {totalTracks: Int, options: SeriesOptions}> = new Map();
 		for (d in data)
 		{
 			var series = seriesByGenre.get(d.genre);
+			var seriesOptions: SeriesOptions;
 			if (series == null)
 			{
-				series = new SeriesOptions();
-				series.name = d.genre;
-				series.data = [];
+				seriesOptions = new SeriesOptions();
+				seriesOptions.name = d.genre;
+				seriesOptions.data = [];
+				series = {totalTracks: 0, options: seriesOptions};
 				seriesByGenre.set(d.genre, series);
-				chartOptions.series.push(series);
 			}
+			else
+			{
+				seriesOptions = series.options;
+			}
+			series.totalTracks += d.numTracks;
 			var point = new DataPoint();
 			point.x = d.year;
 			point.y = d.numTracks;
-			series.data.push(point);
+			seriesOptions.data.push(point);
 		}
 		
+		// Sort series by genre name
+		var displaySeries = Lambda.array(seriesByGenre);
+		displaySeries.sort(function(a, b) { return b.options.name < a.options.name ? 1 : -1; } );
+		for (series in displaySeries)
+			chartOptions.series.push(series.options);
+		
 		var chart = new Chart(chartOptions);
+		
+		// By default, only show the most important genres
+		displaySeries.sort(function(a, b) { return b.totalTracks - a.totalTracks; } );
+		var importantGenres = new Map();
+		for (i in 0...displaySeries.length)
+			if (i < 5)
+				importantGenres.set(displaySeries[i].options.name, true);
+		for (i in 0...chart.series.length)
+		{
+			var visible = importantGenres.exists(chart.series[i].name);
+			chart.series[i].setVisible(visible, false);
+		}
+		chart.redraw();
 		
 		return plotElement;
 	}
