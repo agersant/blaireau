@@ -16,13 +16,15 @@ import sqljs.Database;
  */
 class Charts
 {
+	
+	static inline var CSS_CLASS_CHART : String = "chart";
 
 	public static function plotAlbumsByYear(db : Database) : Node
 	{
 		var data = Analyze.getAlbumsByYear(db);
 		
 		var plotElement = Browser.document.createDivElement();
-		plotElement.setAttribute("class", "chart");
+		plotElement.setAttribute("class", CSS_CLASS_CHART);
 		
 		var chartOptions = new Options();
 		
@@ -56,7 +58,7 @@ class Charts
 		var data = Analyze.getTracksPerGenre(db);
 		
 		var plotElement = Browser.document.createDivElement();
-		plotElement.setAttribute("class", "chart");
+		plotElement.setAttribute("class", CSS_CLASS_CHART);
 		
 		var chartOptions = new Options();
 		
@@ -91,7 +93,7 @@ class Charts
 		var data = Analyze.getTracksPerGenrePerYear(db);
 		
 		var plotElement = Browser.document.createDivElement();
-		plotElement.setAttribute("class", "chart");
+		plotElement.setAttribute("class", CSS_CLASS_CHART);
 		
 		var chartOptions = new Options();
 		
