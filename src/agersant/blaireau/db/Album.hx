@@ -9,7 +9,7 @@ import ufront.db.Object.HasMany;
 class Album extends ufront.db.Object
 {
 
-	var name : Null<String>;
+	var name : String;
 	var tracks : HasMany<Track>;
 	var year : Null<Int>;
 	
