@@ -30,6 +30,7 @@ class DBToDisplay
 			reader.readAsArrayBuffer(files.item(0));
 			reader.onload = function(d : Dynamic)
 			{
+				fileInput.remove();
 				var db = new Database(new Uint8Array(reader.result));
 				render(db);
 			}
