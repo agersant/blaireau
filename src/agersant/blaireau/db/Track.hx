@@ -31,14 +31,17 @@ class Track extends ufront.db.Object
 		
 		// Album
 		var albumName : String = tag.getAlbumName();
-		// TODO homonyms?
-		var matchingAlbum = Album.manager.select($name == albumName);
-		if (matchingAlbum == null)
+		if (albumName != null)
 		{
-			matchingAlbum = new Album(tag);
-			matchingAlbum.save();
+			// TODO homonyms?
+			var matchingAlbum = Album.manager.select($name == albumName);
+			if (matchingAlbum == null)
+			{
+				matchingAlbum = new Album(tag);
+				matchingAlbum.save();
+			}
+			album = matchingAlbum;
 		}
-		album = matchingAlbum;
 		
 		// Countries
 		var countryField = tag.getCustomTextInformation("Country");
