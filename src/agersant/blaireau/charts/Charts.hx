@@ -1,8 +1,10 @@
 package agersant.blaireau.charts;
 import agersant.blaireau.analyze.Analyze;
+import highcharts.Highcharts;
 import highcharts.Highcharts.Chart;
 import highcharts.Highcharts.ChartType;
 import highcharts.Highcharts.DataPoint;
+import highcharts.Highcharts.HighchartsMap;
 import highcharts.Highcharts.Options;
 import highcharts.Highcharts.SeriesOptions;
 import highcharts.Highcharts.ZoomType;
@@ -86,8 +88,6 @@ class Charts
 		return plotElement;
 	}
 	
-	
-	
 	public static function plotTracksPerGenrePerYear(db : Database) : Node
 	{
 		var data = Analyze.getTracksPerGenrePerYear(db);
@@ -149,6 +149,56 @@ class Charts
 			chart.series[i].setVisible(visible, false);
 		}
 		chart.redraw();
+		
+		return plotElement;
+	}
+	
+	public static function plotTracksPerCountry(db : Database) : Node
+	{
+		var data = Analyze.getTracksPerCountry(db);
+		
+		var plotElement = Browser.document.createDivElement();
+		plotElement.setAttribute("class", CSS_CLASS_CHART);
+		
+		var options = new Options();
+		options.title.text = "Tracks per country";
+		options.chart.renderTo = plotElement;
+		
+		var maxTracks = 0;
+		
+		var mapSeriesContent = [];
+		for (d in data)
+		{
+			if (d.country == "United States") // HACK
+				d.country = "United States of America";
+			var dataPoint = new DataPoint();
+			dataPoint.name = d.country;
+			dataPoint.key = d.country;
+			dataPoint.value = d.numTracks;
+			mapSeriesContent.push(dataPoint);
+			maxTracks = Math.round(Math.max(maxTracks, d.numTracks));
+		}
+		
+		var colorAxisOptions = new ColorAxisOptions();
+		colorAxisOptions.min = 0;
+		colorAxisOptions.max = maxTracks;
+		colorAxisOptions.stops = [
+			[0, "#E4FF7A"],
+			[0.25, "#FFE81A"],
+			[0.5, "#FFBD00"],
+			[0.75, "#FFA000"],
+			[1.0, "#FC7F00"],
+		];
+		options.colorAxis = colorAxisOptions;
+		
+		var mapSeries = new SeriesOptions();
+		mapSeries.name = "Number of tracks";
+		mapSeries.mapData = Reflect.getProperty(Highcharts.maps, 'custom/world');
+		mapSeries.data = mapSeriesContent;
+		mapSeries.joinBy = ["name", "key"];
+		options.series.push(mapSeries);
+		
+		var chart = new HighchartsMap(options);
 		
 		return plotElement;
 	}
