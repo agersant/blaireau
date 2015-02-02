@@ -43,6 +43,17 @@ class Analyze
 		return cast(mapSQLResult(result[0].columns, result[0].values));
 	}
 	
+	public static function getTracksPerCountry(db : Database) : Array<{country: String, numTracks : Int}>
+	{
+		var result = db.exec('	SELECT Country.name AS country, COUNT(*) as numTracks
+								FROM Track								
+								INNER JOIN _join_Country_Track ON _join_Country_Track.r2 = Track.id
+								INNER JOIN Country ON Country.id = _join_Country_Track.r1
+								GROUP BY Country.id
+							');
+		return cast(mapSQLResult(result[0].columns, result[0].values));
+	}
+	
 	static function mapSQLResult (columns : Array<String>, rows : Array<Array<Dynamic>>) : Array<Dynamic>
 	{
 		var output = new Array();
