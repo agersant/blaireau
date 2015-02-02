@@ -44,7 +44,6 @@ class Analyze
 			}
 			output.push(value);
 		}
-		
 		return output;
 	}
 	
