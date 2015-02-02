@@ -8,7 +8,9 @@ package highcharts;
 @:native("Highcharts")
 extern class Highcharts
 {
+	public static function getOptions() : Options {}
 	public static function setOptions(options : Options) : Void {}
+	public static var maps : Dynamic; // MAPS
 }
 
 @:native("Highcharts.Chart")
@@ -33,13 +35,20 @@ extern class Series
 	public function show() : Void {}
 }
 
+@:native("Highcharts.Map")
+extern class HighchartsMap // MAPS
+{
+	public function new(options : Options) {}
+}
 
 class DataPoint
 {
 	public function new() {}
-	public var name : String;
-	public var x : Null<Float>;
-	public var y : Null<Float>;
+	public var name: String;
+	public var key: String; // MAPS
+	public var value: Float; // MAPS
+	public var x: Null<Float>;
+	public var y: Null<Float>;
 }
 
 class AxisType
@@ -82,11 +91,12 @@ class ZoomType
 	public static inline var xy: String = "xy";
 }
 
-
 class Options
 {
 	public function new() {}
 	public var chart: ChartOptions = new ChartOptions();
+	public var colors: Array<Dynamic>;
+	public var colorAxis: ColorAxisOptions;
 	public var series: Array<SeriesOptions> = [];
 	public var title: TitleOptions = new TitleOptions();
 	public var xAxis: AxisOptions = new AxisOptions();
@@ -118,7 +128,7 @@ class AxisTitleOptions
 
 class ChartOptions
 {
-	public function new() { }
+	public function new() {}
 	public var height : Null<Float>;
 	public var renderTo : js.html.Node;
 	public var type : String;	
@@ -126,11 +136,23 @@ class ChartOptions
 	public var zoomType : String;
 }
 
+class ColorAxisOptions
+{
+	public function new() {}
+	public var min: Null<Float>;
+	public var minColor: Dynamic;
+	public var max: Null<Float>;
+	public var maxColor: Dynamic;
+	public var stops: Array<Array<Dynamic>>;
+}
+
 class SeriesOptions
 {
 	public function new() {}
 	public var data : Array<Dynamic> = [];
-	public var name : String;
+	public var joinBy : Array<String> = []; // MAPS
+	public var mapData : Array<Dynamic> = []; // MAPS
+	public var name : String;	
 	public var showInLegend : Null<Bool>;
 }
 
