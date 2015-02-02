@@ -17,18 +17,16 @@ import sqljs.Database;
 class Charts
 {
 
-	static inline var width : Float = 960;
-	static inline var height : Float = 600;
-	
 	public static function plotAlbumsByYear(db : Database) : Node
 	{
 		var data = Analyze.getAlbumsByYear(db);
+		
 		var plotElement = Browser.document.createDivElement();
+		plotElement.setAttribute("class", "chart");
+		
 		var chartOptions = new Options();
 		
 		chartOptions.title.text = "Albums per year of release";
-		chartOptions.chart.width = Charts.width;
-		chartOptions.chart.height = Charts.height;
 		chartOptions.chart.zoomType = ZoomType.x;
 		chartOptions.chart.renderTo = plotElement;
 		chartOptions.chart.type = ChartType.column;
@@ -56,12 +54,13 @@ class Charts
 	public static function plotTracksByGenre(db : Database) : Node
 	{
 		var data = Analyze.getTracksPerGenre(db);
+		
 		var plotElement = Browser.document.createDivElement();
+		plotElement.setAttribute("class", "chart");
+		
 		var chartOptions = new Options();
 		
 		chartOptions.title.text = "Tracks per genre";
-		chartOptions.chart.width = Charts.width;
-		chartOptions.chart.height = Charts.height;
 		chartOptions.chart.zoomType = ZoomType.x;
 		chartOptions.chart.renderTo = plotElement;
 		chartOptions.chart.type = ChartType.column;
