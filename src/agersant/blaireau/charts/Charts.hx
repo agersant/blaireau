@@ -96,7 +96,7 @@ class Charts
 		var chartOptions = new Options();
 		
 		chartOptions.title.text = "Tracks per genre over time";
-		chartOptions.chart.zoomType = ZoomType.x;
+		chartOptions.chart.zoomType = ZoomType.xy;
 		chartOptions.chart.renderTo = plotElement;
 		chartOptions.chart.type = ChartType.spline;
 		

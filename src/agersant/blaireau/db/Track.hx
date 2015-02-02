@@ -31,10 +31,12 @@ class Track extends ufront.db.Object
 		
 		// Album
 		var albumName : String = tag.getAlbumName();
+		var matchingAlbum : Album;
 		if (albumName != null)
 		{
-			// TODO homonyms?
-			var matchingAlbum = Album.manager.select($name == albumName);
+			// TODO look at album artist
+			var year : Null<Int> = tag.getYear();
+			var matchingAlbum = Album.manager.select($name == albumName && (year == null || $year == year));
 			if (matchingAlbum == null)
 			{
 				matchingAlbum = new Album(tag);
