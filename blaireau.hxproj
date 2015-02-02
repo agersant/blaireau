@@ -17,7 +17,6 @@
   <classpaths>
     <class path="src" />
     <class path="..\id3\src" />
-    <class path="lib\d3-haxe-extern\src" />
   </classpaths>
   <!-- Build options -->
   <build>
