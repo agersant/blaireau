@@ -78,7 +78,16 @@ class AxisOptions
 {
 	public function new() {}
 	public var categories : Array<String>;
+	public var labels : AxisLabelsOptions = new AxisLabelsOptions();
 	public var title : AxisTitleOptions = new AxisTitleOptions();
+}
+
+class AxisLabelsOptions
+{
+	public function new() { }
+	public var enabled : Null<Bool>;
+	public var format : String;
+	public var rotation : Null<Float>;
 }
 
 class AxisTitleOptions

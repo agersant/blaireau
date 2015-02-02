@@ -66,6 +66,7 @@ class Charts
 		chartOptions.chart.type = ChartType.column;
 		
 		chartOptions.yAxis.title.text = "Number of tracks";
+		chartOptions.xAxis.labels.rotation = -70;
 		chartOptions.xAxis.title.text = "Genre";
 		chartOptions.xAxis.categories = [];
 		
