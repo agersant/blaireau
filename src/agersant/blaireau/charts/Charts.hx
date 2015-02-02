@@ -84,4 +84,46 @@ class Charts
 		return plotElement;
 	}
 	
+	
+	
+	public static function plotTracksPerGenrePerYear(db : Database) : Node
+	{
+		var data = Analyze.getTracksPerGenrePerYear(db);
+		
+		var plotElement = Browser.document.createDivElement();
+		plotElement.setAttribute("class", "chart");
+		
+		var chartOptions = new Options();
+		
+		chartOptions.title.text = "Tracks per genre over time";
+		chartOptions.chart.zoomType = ZoomType.x;
+		chartOptions.chart.renderTo = plotElement;
+		chartOptions.chart.type = ChartType.spline;
+		
+		chartOptions.yAxis.title.text = "Number of tracks";
+		chartOptions.xAxis.title.text = "Year";
+		
+		var seriesByGenre: Map<String, SeriesOptions> = new Map();
+		for (d in data)
+		{
+			var series = seriesByGenre.get(d.genre);
+			if (series == null)
+			{
+				series = new SeriesOptions();
+				series.name = d.genre;
+				series.data = [];
+				seriesByGenre.set(d.genre, series);
+				chartOptions.series.push(series);
+			}
+			var point = new DataPoint();
+			point.x = d.year;
+			point.y = d.numTracks;
+			series.data.push(point);
+		}
+		
+		var chart = new Chart(chartOptions);
+		
+		return plotElement;
+	}
+	
 }
