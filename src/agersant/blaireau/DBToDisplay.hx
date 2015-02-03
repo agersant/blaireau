@@ -56,6 +56,7 @@ class DBToDisplay
 		container.appendChild(Charts.plotTracksByGenre(db));
 		container.appendChild(Charts.plotTracksPerGenrePerYear(db));
 		container.appendChild(Charts.plotTracksPerCountry(db));
+		container.appendChild(Charts.plotTracksPerGenrePerCountry(db));
 	}
 	
 }

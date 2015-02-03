@@ -11,10 +11,20 @@ input
 	margin-top: 160px;
 }
 
-.chart {
+.full_chart {
 	margin: auto;
 	margin-bottom: 32px;
 	margin-top: 32px;
-	width: 80%;
 	height: 100%;
+	width: 80%;
+}
+
+.quarter_chart {
+	float: left;
+	width: 20%;
+	height: 50%;
+}
+
+.quarter_chart:nth-of-type(4n+1) {
+	margin-left: 10%;
 }
