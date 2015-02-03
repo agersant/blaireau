@@ -97,6 +97,7 @@ class Options
 	public var chart: ChartOptions = new ChartOptions();
 	public var colors: Array<Dynamic>;
 	public var colorAxis: ColorAxisOptions;
+	public var credits: CreditsOptions = new CreditsOptions();
 	public var series: Array<SeriesOptions> = [];
 	public var title: TitleOptions = new TitleOptions();
 	public var xAxis: AxisOptions = new AxisOptions();
@@ -144,6 +145,12 @@ class ColorAxisOptions
 	public var max: Null<Float>;
 	public var maxColor: Dynamic;
 	public var stops: Array<Array<Dynamic>>;
+}
+
+class CreditsOptions
+{
+	public function new() {}
+	public var enabled: Null<Bool>;
 }
 
 class SeriesOptions
