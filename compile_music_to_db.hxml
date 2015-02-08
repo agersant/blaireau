@@ -4,7 +4,7 @@
 -lib ufront-orm
 -lib format
 -lib unifill
--cp ../id3v2/src
+-cp lib/id3v2/src
 -cp src
 
 -D server

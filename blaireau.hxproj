@@ -16,7 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="..\id3v2\src" />
+    <class path="lib\id3v2\src" />
   </classpaths>
   <!-- Build options -->
   <build>

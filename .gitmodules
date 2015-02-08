@@ -1,3 +1,6 @@
 [submodule "lib/sql.js"]
 	path = lib/sql.js
 	url = https://github.com/kripken/sql.js.git
+[submodule "lib/id3v2"]
+	path = lib/id3v2
+	url = https://github.com/agersant/id3v2.git
